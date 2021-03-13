@@ -1,0 +1,6 @@
+it\iad2\crudoneserver\repository\ProdottoRepository.class
+it\iad2\crudoneserver\model\Prodotto.class
+it\iad2\crudoneserver\service\impl\CrudOneServiceImpl.class
+it\iad2\crudoneserver\CrudoneserverApplication.class
+it\iad2\crudoneserver\controller\CrudOneController.class
+it\iad2\crudoneserver\service\CrudOneService.class
