@@ -1,13 +1,13 @@
-package it.iad2.crudoneserver;
+package it.iad2.crudoneunoserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CrudoneserverApplication {
+public class CrudOneApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CrudoneserverApplication.class, args);
+		SpringApplication.run(CrudOneApplication.class, args);
 	}
 
 }

@@ -1,10 +1,10 @@
-package it.iad2.crudoneserver;
+package it.iad2.rubricatelefonicaunoserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CrudoneserverApplicationTests {
+class RubricaTelefonicaApplicationTests {
 
 	@Test
 	void contextLoads() {
