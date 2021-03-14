@@ -1,2 +1,9 @@
-<app-crudform></app-crudform>
-<app-crudtabella></app-crudtabella>
+<button (click)=vaiStatoAggiungi()>Nuovo</button>
+<app-crudform (edit)="vaiStatoModifica()" 
+             (remove)="vaiStatoRimuovi()" 
+             (confirm)="vaiStatoConferma()"
+             (cancel)="vaiStatoAnnulla()">
+</app-crudform>
+<app-crudtabella (search)="vaiStatoRicerca($event)" 
+                 (select)="vaiStatoSeleziona($event)">
+</app-crudtabella>
