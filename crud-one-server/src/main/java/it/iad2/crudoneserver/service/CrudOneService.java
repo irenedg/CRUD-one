@@ -8,12 +8,12 @@ public interface CrudOneService {
 
     ListaProdottoDto aggiungi(Prodotto dto);
 
-    ListaProdottoDto modifica(Prodotto dto);
+    ListaProdottoDto modifica(Prodotto dto, String criterio);
 
-    ListaProdottoDto rimuovi(Prodotto dto);
+    ListaProdottoDto rimuovi(Prodotto dto, String criterio);
 
     ListaProdottoDto ricerca(String criterio);
 
-    ListaProdottoDto visualizzaLista(Prodotto dto);
+    ListaProdottoDto selezionaTutti();
 
 }

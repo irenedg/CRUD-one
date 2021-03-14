@@ -3,6 +3,7 @@ package it.iad2.crudoneserver.controller;
 import it.iad2.crudoneserver.dto.CriterioRicercaDto;
 import it.iad2.crudoneserver.dto.ListaProdottoDto;
 import it.iad2.crudoneserver.dto.ProdottoDto;
+import it.iad2.crudoneserver.dto.ProdottoRicercaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,30 +22,31 @@ public class CrudOneController {
     @RequestMapping("/aggiungi")
     @ResponseBody
     public ListaProdottoDto aggiungi(@RequestBody ProdottoDto dto) {
-        throw new UnsupportedOperationException();
+        return crudoneService.aggiungi(dto.getProdotto());
     }
     
     @RequestMapping("/modifica")
     @ResponseBody
-    public ListaProdottoDto modifica(@RequestBody ProdottoDto dto) {
-        throw new UnsupportedOperationException();
+    public ListaProdottoDto modifica(@RequestBody ProdottoRicercaDto dto) {
+        return crudoneService.modifica(dto.getProdotto(), dto.getCriterio());
     }
     
     @RequestMapping("/rimuovi")
     @ResponseBody
-    public ListaProdottoDto rimuovi(@RequestBody ProdottoDto dto) {
-        throw new UnsupportedOperationException();
+    public ListaProdottoDto rimuovi(@RequestBody ProdottoRicercaDto dto) {
+        return crudoneService.rimuovi(dto.getProdotto(), dto.getCriterio());
     }
     
     @RequestMapping("/ricerca")
     @ResponseBody
     public ListaProdottoDto ricerca(@RequestBody CriterioRicercaDto dto) {
-        throw new UnsupportedOperationException();
+        return crudoneService.ricerca(dto.getStringa());
+        
     }
     
     @RequestMapping("/visualizza-lista")
     @ResponseBody
-    public ListaProdottoDto visualizzaLista(@RequestBody ProdottoDto dto) {
-        throw new UnsupportedOperationException();
+    public ListaProdottoDto visualizzaLista() {
+        return crudoneService.selezionaTutti();
     }
 }

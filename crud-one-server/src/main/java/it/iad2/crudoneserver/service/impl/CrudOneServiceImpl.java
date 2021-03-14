@@ -18,10 +18,31 @@ public class CrudOneServiceImpl implements CrudOneService {
 
     @Override
     public ListaProdottoDto aggiungi(Prodotto prodotto) {
-        prodottoRepository.save(prodotto);    
+        prodottoRepository.save(prodotto);
         return selezionaTutti();
     }
-    public ListaProdottoDto selezionaTutti(){
+
+    @Override
+    public ListaProdottoDto modifica(Prodotto prodotto, String criterio) {
+        prodottoRepository.updateProdottoSetStatusForId(prodotto.getCodice(), prodotto.getDescrizione(), prodotto.getId());
+        return ricerca(criterio);
+    }
+
+    @Override
+    public ListaProdottoDto rimuovi(Prodotto prodotto, String criterio) {
+        prodottoRepository.delete(prodotto);
+        return ricerca(criterio);
+    }
+
+    @Override
+    public ListaProdottoDto ricerca(String criterio) {        
+        List<Prodotto> lista = prodottoRepository.findByCodiceContainsOrDescrizioneContains(criterio, criterio);
+        return new ListaProdottoDto(lista);
+
+    }
+
+    @Override
+    public ListaProdottoDto selezionaTutti() {
         ListaProdottoDto dto = new ListaProdottoDto();
         List<Prodotto> lista = prodottoRepository.findAll();
         if (lista == null) {
@@ -30,33 +51,6 @@ public class CrudOneServiceImpl implements CrudOneService {
             dto.setListaProdotto(lista);
         }
         return dto;
-        //return new ListaProdottoDto(prodottoRepository.findAll());
-    }
-    @Override
-    public ListaProdottoDto modifica(Prodotto prodotto) {
-        prodottoRepository.updateProdottoSetStatusForId(prodotto.getCodice(),prodotto.getDescrizione(), prodotto.getId());        
-        return selezionaTutti();
     }
 
-    @Override
-    public ListaProdottoDto rimuovi(Prodotto prodotto) {
-        prodottoRepository.delete(prodotto);    
-        return selezionaTutti();
-    }
-
-    @Override
-    public ListaProdottoDto ricerca(String criterio) {
-        List<Prodotto> lista = prodottoRepository.findByCodiceContainsOrDescrizioneContains(criterio, criterio);
-        return new ListaProdottoDto(lista);
-        
-    }
-
-    @Override
-    public ListaProdottoDto visualizzaLista(Prodotto prodotto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    
- 
 }

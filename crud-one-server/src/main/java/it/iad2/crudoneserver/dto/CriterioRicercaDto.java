@@ -2,26 +2,26 @@ package it.iad2.crudoneserver.dto;
 
 public class CriterioRicercaDto {
 
-    private String stringa;
+    private String criterio;
 
     public CriterioRicercaDto() {
     }
 
-    public CriterioRicercaDto(String stringa) {
-        this.stringa = stringa;
+    public CriterioRicercaDto(String criterio) {
+        this.criterio = criterio;
     }
 
     public String getStringa() {
-        return stringa;
+        return criterio;
     }
 
-    public void setStringa(String stringa) {
-        this.stringa = stringa;
+    public void setStringa(String criterio) {
+        this.criterio = criterio;
     }
 
     @Override
     public String toString() {
-        return "CriterioRicercaDto{" + "stringa=" + stringa + '}';
+        return "CriterioRicercaDto{" + "criterio=" + criterio + '}';
     }
 
 }
