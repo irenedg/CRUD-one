@@ -1,9 +1,18 @@
-<button (click)=aggiungi()>Nuovo</button>
-<app-crudform (edit)="modifica()" 
-             (remove)="rimuovi()" 
-             (confirm)="conferma()"
-             (cancel)="annulla()">
-</app-crudform>
-<app-crudtabella (search)="ricerca($event)" 
-                 (select)="seleziona($event)">
-</app-crudtabella>
+<div *ngIf="nuovoVis ; else elseBlock">
+    <button (click)=aggiungi()>Nuovo</button>
+</div>
+<ng-template #elseBlock>
+    <div>
+        <button disabled>Nuovo</button>
+    </div>
+</ng-template>
+<br>
+<div *ngIf="formVis">
+    <app-crudform (edit)="modifica()" (remove)="rimuovi()" (confirm)="conferma()" (cancel)="annulla()">
+    </app-crudform>
+</div>
+<br>
+<div *ngIf="tabVis">
+    <app-crudtabella (search)="ricerca($event)" (select)="seleziona($event)">
+    </app-crudtabella>
+</div>
