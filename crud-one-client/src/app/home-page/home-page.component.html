@@ -1,9 +1,9 @@
-<button (click)=vaiStatoAggiungi()>Nuovo</button>
-<app-crudform (edit)="vaiStatoModifica()" 
-             (remove)="vaiStatoRimuovi()" 
-             (confirm)="vaiStatoConferma()"
-             (cancel)="vaiStatoAnnulla()">
+<button (click)=aggiungi()>Nuovo</button>
+<app-crudform (edit)="modifica()" 
+             (remove)="rimuovi()" 
+             (confirm)="conferma()"
+             (cancel)="annulla()">
 </app-crudform>
-<app-crudtabella (search)="vaiStatoRicerca($event)" 
-                 (select)="vaiStatoSeleziona($event)">
+<app-crudtabella (search)="ricerca($event)" 
+                 (select)="seleziona($event)">
 </app-crudtabella>
