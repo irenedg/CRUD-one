@@ -1,4 +1,12 @@
-import { AddEvent, ConfermaEvent, ModificaEvent, RicercaEvent, AnnullaEvent, RimuoviEvent, SelezionaEvent } from './automa/eventi';
+import {
+  AddEvent,
+  ConfermaEvent,
+  ModificaEvent,
+  RicercaEvent,
+  AnnullaEvent,
+  RimuoviEvent,
+  SelezionaEvent,
+} from './automa/eventi';
 import { Automabile } from './automa/state';
 import { Automa } from './automa/automa';
 import { HttpClient } from '@angular/common/http';
@@ -15,12 +23,12 @@ import { AggiungiState, ModificaState, RimuoviState } from './automa/stati';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements Automabile, OnInit {
   prodotto: Prodotto = new Prodotto();
   prodotti: Prodotto[] = [];
-  searchCriterion: string = "";
+  searchCriterion: string = '';
   automa: Automa;
 
   // proprietà gui
@@ -30,8 +38,7 @@ export class AppComponent implements Automabile, OnInit {
   confAnnVisible: boolean = false;
   searchVisible: boolean = false;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     // TODO: caricare lista prodotti all'inizio
@@ -80,68 +87,85 @@ export class AppComponent implements Automabile, OnInit {
   }
 
   nuova() {
+    if (this.prodotto.codice == null && this.prodotto.descrizione == null) {
     this.automa.next(new AddEvent());
+    }
   }
 
   modifica() {
-    this.automa.next(new ModificaEvent());
+    if (this.prodotto.codice != null && this.prodotto.descrizione != null) {
+      this.automa.next(new ModificaEvent());
+    }
   }
 
   conferma() {
-    console.log("stato: ", this.automa.stato);
+    console.log('stato: ', this.automa.stato);
     if (this.automa.stato instanceof AggiungiState) {
-      console.log("sono in conferma aggiungi");
+      console.log('sono in conferma aggiungi');
       // chiamata REST nuova
       if (this.prodotto.codice != null && this.prodotto.descrizione != null) {
-        let dtoA: ProdottoDto = new ProdottoDto;
-        console.log("codice     : ", this.prodotto.codice);
-        console.log("descrizione: ", this.prodotto.descrizione);
+        let dtoA: ProdottoDto = new ProdottoDto();
+        console.log('codice     : ', this.prodotto.codice);
+        console.log('descrizione: ', this.prodotto.descrizione);
         dtoA.prodotto = this.prodotto;
-        let ossA: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/aggiungi', dtoA);
-        ossA.subscribe(r => this.prodotti = r.listaProdotto);
+        let ossA: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
+          'http://localhost:8080/aggiungi',
+          dtoA
+        );
+        ossA.subscribe((r) => (this.prodotti = r.listaProdotto));
       }
     } else if (this.automa.stato instanceof ModificaState) {
-      console.log("sono in conferma modifica");
+      console.log('sono in conferma modifica');
       // chiamata REST modifica
       if (this.prodotto.codice != null && this.prodotto.descrizione != null) {
-        let dtoM: ProdottoRicercaDto = new ProdottoRicercaDto;
+        let dtoM: ProdottoRicercaDto = new ProdottoRicercaDto();
         dtoM.prodotto = this.prodotto;
         dtoM.criterio = this.searchCriterion;
-        let ossM: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/modifica', dtoM);
-        ossM.subscribe(r => this.prodotti = r.listaProdotto);
+        let ossM: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
+          'http://localhost:8080/modifica',
+          dtoM
+        );
+        ossM.subscribe((r) => (this.prodotti = r.listaProdotto));
       }
     } else if (this.automa.stato instanceof RimuoviState) {
-      console.log("sono in conferma rimuovi");
-      // chiamata REST rimuovi    
+      console.log('sono in conferma rimuovi');
+      // chiamata REST rimuovi
       if (this.prodotto.codice != null && this.prodotto.descrizione != null) {
-        let dtoR: ProdottoRicercaDto = new ProdottoRicercaDto;
+        let dtoR: ProdottoRicercaDto = new ProdottoRicercaDto();
         dtoR.prodotto = this.prodotto;
         dtoR.criterio = this.searchCriterion;
-        let ossR: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/rimuovi', dtoR);
-        ossR.subscribe(r => this.prodotti = r.listaProdotto);
+        let ossR: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
+          'http://localhost:8080/rimuovi',
+          dtoR
+        );
+        ossR.subscribe((r) => (this.prodotti = r.listaProdotto));
       }
     }
     this.automa.next(new ConfermaEvent());
-    this.prodotto = new Prodotto;
+    this.prodotto = new Prodotto();
   }
 
   annulla() {
     this.automa.next(new AnnullaEvent());
-    this.prodotto.codice = "";
-    this.prodotto.descrizione = "";
+    this.prodotto = new Prodotto();
   }
 
   rimuovi() {
-    this.automa.next(new RimuoviEvent());
+    if (this.prodotto.codice != null && this.prodotto.descrizione != null) {
+      this.automa.next(new RimuoviEvent());
+    }
   }
 
   cerca() {
     // chiamata REST ricerca
     this.automa.next(new RicercaEvent());
-    let dto: RicercaDto = new RicercaDto;
+    let dto: RicercaDto = new RicercaDto();
     dto.criterio = this.searchCriterion;
-    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>('http://localhost:8080/ricerca', dto);
-    oss.subscribe(r => this.prodotti = r.listaProdotto);
+    let oss: Observable<ListaProdottiDto> = this.http.post<ListaProdottiDto>(
+      'http://localhost:8080/ricerca',
+      dto
+    );
+    oss.subscribe((r) => (this.prodotti = r.listaProdotto));
   }
 
   seleziona(prod: Prodotto) {
@@ -152,7 +176,9 @@ export class AppComponent implements Automabile, OnInit {
   }
 
   aggiorna() {
-    let oss: Observable<ListaProdottiDto> = this.http.get<ListaProdottiDto>('http://localhost:8080/visualizza-lista');
-    oss.subscribe(r => this.prodotti = r.listaProdotto);
+    let oss: Observable<ListaProdottiDto> = this.http.get<ListaProdottiDto>(
+      'http://localhost:8080/visualizza-lista'
+    );
+    oss.subscribe((r) => (this.prodotti = r.listaProdotto));
   }
 }
