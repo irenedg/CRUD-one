@@ -1,14 +1,11 @@
 package it.iad2.crudoneserver.service.impl;
 
-import it.iad2.crudoneserver.dto.CriterioRicercaDto;
 import it.iad2.crudoneserver.dto.ListaProdottoDto;
 import it.iad2.crudoneserver.model.Prodotto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.iad2.crudoneserver.service.CrudOneService;
 import it.iad2.crudoneserver.repository.ProdottoRepository;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CrudOneServiceImpl implements CrudOneService {
@@ -24,7 +21,7 @@ public class CrudOneServiceImpl implements CrudOneService {
 
     @Override
     public ListaProdottoDto modifica(Prodotto prodotto, String criterio) {
-        prodottoRepository.updateProdottoSetStatusForId(prodotto.getCodice(), prodotto.getDescrizione(), prodotto.getId());
+        prodottoRepository.save(prodotto);
         return ricerca(criterio);
     }
 
@@ -36,8 +33,7 @@ public class CrudOneServiceImpl implements CrudOneService {
 
     @Override
     public ListaProdottoDto ricerca(String criterio) {
-        List<Prodotto> lista = prodottoRepository.findByCodiceContainsOrDescrizioneContains(criterio, criterio);
-        return new ListaProdottoDto(lista);
+        return new ListaProdottoDto(prodottoRepository.findByCodiceContainsOrDescrizioneContains(criterio, criterio));
 
     }
 

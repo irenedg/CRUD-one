@@ -1,6 +1,5 @@
 package it.iad2.crudoneserver.service;
 
-import it.iad2.crudoneserver.dto.CriterioRicercaDto;
 import it.iad2.crudoneserver.dto.ListaProdottoDto;
 import it.iad2.crudoneserver.model.Prodotto;
 

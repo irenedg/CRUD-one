@@ -11,17 +11,11 @@ public class CriterioRicercaDto {
         this.criterio = criterio;
     }
 
-    public String getStringa() {
+    public String getCriterio() {
         return criterio;
     }
 
-    public void setStringa(String criterio) {
+    public void setCriterio(String criterio) {
         this.criterio = criterio;
     }
-
-    @Override
-    public String toString() {
-        return "CriterioRicercaDto{" + "criterio=" + criterio + '}';
-    }
-
 }

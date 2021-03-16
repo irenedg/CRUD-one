@@ -40,7 +40,7 @@ public class CrudOneController {
     @RequestMapping("/ricerca")
     @ResponseBody
     public ListaProdottoDto ricerca(@RequestBody CriterioRicercaDto dto) {
-        return crudoneService.ricerca(dto.getStringa());
+        return crudoneService.ricerca(dto.getCriterio());
         
     }
     
