@@ -23,6 +23,9 @@ public class ListaProdottoDto {
 
     @Override
     public String toString() {
+        for (Prodotto prodotto : listaProdotto) {
+            System.out.println("prodotto: " + prodotto.getCodice() + " " + prodotto.getDescrizione());
+        }
         return "ListaProdottoDto{" + "listaProdotto=" + listaProdotto + '}';
     }
 }

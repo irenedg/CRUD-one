@@ -35,7 +35,7 @@ public class CrudOneServiceImpl implements CrudOneService {
     }
 
     @Override
-    public ListaProdottoDto ricerca(String criterio) {        
+    public ListaProdottoDto ricerca(String criterio) {
         List<Prodotto> lista = prodottoRepository.findByCodiceContainsOrDescrizioneContains(criterio, criterio);
         return new ListaProdottoDto(lista);
 
@@ -43,14 +43,7 @@ public class CrudOneServiceImpl implements CrudOneService {
 
     @Override
     public ListaProdottoDto selezionaTutti() {
-        ListaProdottoDto dto = new ListaProdottoDto();
-        List<Prodotto> lista = prodottoRepository.findAll();
-        if (lista == null) {
-            dto.setListaProdotto(new ArrayList<>());
-        } else {
-            dto.setListaProdotto(lista);
-        }
-        return dto;
+        return new ListaProdottoDto(prodottoRepository.findAll()); 
     }
 
 }
